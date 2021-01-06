@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+
 	"github.com/go-redis/redis"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -29,10 +30,12 @@ func init() {
 		}
 	}
 
-	//init mysql
-	conn := fmt.Sprintf("%s:%s@(%s)/%s?charset=%s&parseTime=True&loc=Local", viper.GetString("mysql.user"),
+	//init mysql %s:%s@(%s)/%s?charset=%s&parseTime=True&loc=Local
+	/*	conn := fmt.Sprintf(" %s:%s@(%s)/%s?charset=%s&parseTime=True&loc=Local", viper.GetString("mysql.user"),
 		viper.GetString("mysql.password"), viper.GetString("mysql.addr"), viper.GetString("mysql.database"),
-		viper.GetString("mysql.charset"))
+		viper.GetString("mysql.charset"))*/
+	conn := fmt.Sprintf("%s:%s@unix(/cloudsql/%s)/%s", viper.GetString("mysql.user"),
+		viper.GetString("mysql.password"), viper.GetString("mysql.instance_connection_name"), viper.GetString("mysql.database"))
 	if db, err := gorm.Open("mysql", conn); err == nil {
 		mysqlDB = db
 	} else {
