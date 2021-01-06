@@ -1,0 +1,2558 @@
+swagger: "2.0"
+info:
+  description: "A GinBro RESTful APIs"
+  version: "1.0.0"
+  title: "GinBro RESTful APIs Application"
+host: "ynov-api.ew.r.appspot.com"
+basePath: "/api/v1"
+
+schemes:
+- "http"
+paths:
+  
+  
+  /chat:
+    get:
+      tags:
+      - "chat"
+      summary: "get all chat by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ChatPagination"
+    post:
+      tags:
+      - "chat"
+      summary: "create chat"
+      description: "create chat"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create chat"
+        required: true
+        schema:
+          $ref: "#/definitions/Chat"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "chat"
+      summary: "update chat"
+      description: "update chat"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create chat"
+        required: true
+        schema:
+          $ref: "#/definitions/Chat"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /chat/{Id}:
+    get:
+      tags:
+      - "chat"
+      summary: "get a chat by ID"
+      description: "get a chat by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of chat to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Chat"
+    delete:
+      tags:
+      - "chat"
+      summary: "Destroy a chat by ID"
+      description: "delete a chat by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of chat to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /chat-comment:
+    get:
+      tags:
+      - "chat-comment"
+      summary: "get all chat-comment by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ChatCommentPagination"
+    post:
+      tags:
+      - "chat-comment"
+      summary: "create chat-comment"
+      description: "create chat-comment"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create chat-comment"
+        required: true
+        schema:
+          $ref: "#/definitions/ChatComment"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "chat-comment"
+      summary: "update chat-comment"
+      description: "update chat-comment"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create chat-comment"
+        required: true
+        schema:
+          $ref: "#/definitions/ChatComment"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /chat-comment/{Id}:
+    get:
+      tags:
+      - "chat-comment"
+      summary: "get a chat-comment by ID"
+      description: "get a chat-comment by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of chat-comment to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ChatComment"
+    delete:
+      tags:
+      - "chat-comment"
+      summary: "Destroy a chat-comment by ID"
+      description: "delete a chat-comment by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of chat-comment to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /city:
+    get:
+      tags:
+      - "city"
+      summary: "get all city by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/CityPagination"
+    post:
+      tags:
+      - "city"
+      summary: "create city"
+      description: "create city"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create city"
+        required: true
+        schema:
+          $ref: "#/definitions/City"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "city"
+      summary: "update city"
+      description: "update city"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create city"
+        required: true
+        schema:
+          $ref: "#/definitions/City"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /city/{Id}:
+    get:
+      tags:
+      - "city"
+      summary: "get a city by ID"
+      description: "get a city by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of city to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/City"
+    delete:
+      tags:
+      - "city"
+      summary: "Destroy a city by ID"
+      description: "delete a city by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of city to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /cities-district:
+    get:
+      tags:
+      - "cities-district"
+      summary: "get all cities-district by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/CitiesDistrictPagination"
+    post:
+      tags:
+      - "cities-district"
+      summary: "create cities-district"
+      description: "create cities-district"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create cities-district"
+        required: true
+        schema:
+          $ref: "#/definitions/CitiesDistrict"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "cities-district"
+      summary: "update cities-district"
+      description: "update cities-district"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create cities-district"
+        required: true
+        schema:
+          $ref: "#/definitions/CitiesDistrict"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /cities-district/{Id}:
+    get:
+      tags:
+      - "cities-district"
+      summary: "get a cities-district by ID"
+      description: "get a cities-district by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of cities-district to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/CitiesDistrict"
+    delete:
+      tags:
+      - "cities-district"
+      summary: "Destroy a cities-district by ID"
+      description: "delete a cities-district by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of cities-district to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /real-estate:
+    get:
+      tags:
+      - "real-estate"
+      summary: "get all real-estate by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/RealEstatePagination"
+    post:
+      tags:
+      - "real-estate"
+      summary: "create real-estate"
+      description: "create real-estate"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create real-estate"
+        required: true
+        schema:
+          $ref: "#/definitions/RealEstate"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "real-estate"
+      summary: "update real-estate"
+      description: "update real-estate"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create real-estate"
+        required: true
+        schema:
+          $ref: "#/definitions/RealEstate"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /real-estate/{Id}:
+    get:
+      tags:
+      - "real-estate"
+      summary: "get a real-estate by ID"
+      description: "get a real-estate by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of real-estate to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/RealEstate"
+    delete:
+      tags:
+      - "real-estate"
+      summary: "Destroy a real-estate by ID"
+      description: "delete a real-estate by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of real-estate to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /real-estate-availability:
+    get:
+      tags:
+      - "real-estate-availability"
+      summary: "get all real-estate-availability by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/RealEstateAvailabilityPagination"
+    post:
+      tags:
+      - "real-estate-availability"
+      summary: "create real-estate-availability"
+      description: "create real-estate-availability"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create real-estate-availability"
+        required: true
+        schema:
+          $ref: "#/definitions/RealEstateAvailability"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "real-estate-availability"
+      summary: "update real-estate-availability"
+      description: "update real-estate-availability"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create real-estate-availability"
+        required: true
+        schema:
+          $ref: "#/definitions/RealEstateAvailability"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /real-estate-availability/{Id}:
+    get:
+      tags:
+      - "real-estate-availability"
+      summary: "get a real-estate-availability by ID"
+      description: "get a real-estate-availability by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of real-estate-availability to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/RealEstateAvailability"
+    delete:
+      tags:
+      - "real-estate-availability"
+      summary: "Destroy a real-estate-availability by ID"
+      description: "delete a real-estate-availability by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of real-estate-availability to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /real-estate-feedback:
+    get:
+      tags:
+      - "real-estate-feedback"
+      summary: "get all real-estate-feedback by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/RealEstateFeedbackPagination"
+    post:
+      tags:
+      - "real-estate-feedback"
+      summary: "create real-estate-feedback"
+      description: "create real-estate-feedback"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create real-estate-feedback"
+        required: true
+        schema:
+          $ref: "#/definitions/RealEstateFeedback"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "real-estate-feedback"
+      summary: "update real-estate-feedback"
+      description: "update real-estate-feedback"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create real-estate-feedback"
+        required: true
+        schema:
+          $ref: "#/definitions/RealEstateFeedback"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /real-estate-feedback/{Id}:
+    get:
+      tags:
+      - "real-estate-feedback"
+      summary: "get a real-estate-feedback by ID"
+      description: "get a real-estate-feedback by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of real-estate-feedback to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/RealEstateFeedback"
+    delete:
+      tags:
+      - "real-estate-feedback"
+      summary: "Destroy a real-estate-feedback by ID"
+      description: "delete a real-estate-feedback by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of real-estate-feedback to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /real-estate-image:
+    get:
+      tags:
+      - "real-estate-image"
+      summary: "get all real-estate-image by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/RealEstateImagePagination"
+    post:
+      tags:
+      - "real-estate-image"
+      summary: "create real-estate-image"
+      description: "create real-estate-image"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create real-estate-image"
+        required: true
+        schema:
+          $ref: "#/definitions/RealEstateImage"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "real-estate-image"
+      summary: "update real-estate-image"
+      description: "update real-estate-image"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create real-estate-image"
+        required: true
+        schema:
+          $ref: "#/definitions/RealEstateImage"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /real-estate-image/{Id}:
+    get:
+      tags:
+      - "real-estate-image"
+      summary: "get a real-estate-image by ID"
+      description: "get a real-estate-image by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of real-estate-image to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/RealEstateImage"
+    delete:
+      tags:
+      - "real-estate-image"
+      summary: "Destroy a real-estate-image by ID"
+      description: "delete a real-estate-image by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of real-estate-image to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /real-estate-propal:
+    get:
+      tags:
+      - "real-estate-propal"
+      summary: "get all real-estate-propal by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/RealEstatePropalPagination"
+    post:
+      tags:
+      - "real-estate-propal"
+      summary: "create real-estate-propal"
+      description: "create real-estate-propal"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create real-estate-propal"
+        required: true
+        schema:
+          $ref: "#/definitions/RealEstatePropal"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "real-estate-propal"
+      summary: "update real-estate-propal"
+      description: "update real-estate-propal"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create real-estate-propal"
+        required: true
+        schema:
+          $ref: "#/definitions/RealEstatePropal"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /real-estate-propal/{Id}:
+    get:
+      tags:
+      - "real-estate-propal"
+      summary: "get a real-estate-propal by ID"
+      description: "get a real-estate-propal by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of real-estate-propal to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/RealEstatePropal"
+    delete:
+      tags:
+      - "real-estate-propal"
+      summary: "Destroy a real-estate-propal by ID"
+      description: "delete a real-estate-propal by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of real-estate-propal to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /real-estate-propals-buyer-indication:
+    get:
+      tags:
+      - "real-estate-propals-buyer-indication"
+      summary: "get all real-estate-propals-buyer-indication by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/RealEstatePropalsBuyerIndicationPagination"
+    post:
+      tags:
+      - "real-estate-propals-buyer-indication"
+      summary: "create real-estate-propals-buyer-indication"
+      description: "create real-estate-propals-buyer-indication"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create real-estate-propals-buyer-indication"
+        required: true
+        schema:
+          $ref: "#/definitions/RealEstatePropalsBuyerIndication"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "real-estate-propals-buyer-indication"
+      summary: "update real-estate-propals-buyer-indication"
+      description: "update real-estate-propals-buyer-indication"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create real-estate-propals-buyer-indication"
+        required: true
+        schema:
+          $ref: "#/definitions/RealEstatePropalsBuyerIndication"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /real-estate-propals-buyer-indication/{Id}:
+    get:
+      tags:
+      - "real-estate-propals-buyer-indication"
+      summary: "get a real-estate-propals-buyer-indication by ID"
+      description: "get a real-estate-propals-buyer-indication by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of real-estate-propals-buyer-indication to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/RealEstatePropalsBuyerIndication"
+    delete:
+      tags:
+      - "real-estate-propals-buyer-indication"
+      summary: "Destroy a real-estate-propals-buyer-indication by ID"
+      description: "delete a real-estate-propals-buyer-indication by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of real-estate-propals-buyer-indication to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /real-estate-visit:
+    get:
+      tags:
+      - "real-estate-visit"
+      summary: "get all real-estate-visit by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/RealEstateVisitPagination"
+    post:
+      tags:
+      - "real-estate-visit"
+      summary: "create real-estate-visit"
+      description: "create real-estate-visit"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create real-estate-visit"
+        required: true
+        schema:
+          $ref: "#/definitions/RealEstateVisit"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "real-estate-visit"
+      summary: "update real-estate-visit"
+      description: "update real-estate-visit"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create real-estate-visit"
+        required: true
+        schema:
+          $ref: "#/definitions/RealEstateVisit"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /real-estate-visit/{Id}:
+    get:
+      tags:
+      - "real-estate-visit"
+      summary: "get a real-estate-visit by ID"
+      description: "get a real-estate-visit by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of real-estate-visit to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/RealEstateVisit"
+    delete:
+      tags:
+      - "real-estate-visit"
+      summary: "Destroy a real-estate-visit by ID"
+      description: "delete a real-estate-visit by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of real-estate-visit to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /login:
+    post:
+      tags:
+      - "auth"
+      summary: "login by user"
+      description: "login by user"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create user"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/UserAuth"
+
+  
+  /user:
+    get:
+      tags:
+      - "user"
+      summary: "get all user by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UserPagination"
+    post:
+      tags:
+      - "user"
+      summary: "create user"
+      description: "create user"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create user"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "user"
+      summary: "update user"
+      description: "update user"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create user"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /user/{Id}:
+    get:
+      tags:
+      - "user"
+      summary: "get a user by ID"
+      description: "get a user by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of user to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+    delete:
+      tags:
+      - "user"
+      summary: "Destroy a user by ID"
+      description: "delete a user by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of user to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+
+
+definitions:
+  
+  
+  Chat:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "Id de la conversation"
+        format: "int64"
+      
+      id_user1:
+        type: "integer"
+        description: "Id utilisateur 1"
+        format: "int64"
+      
+      id_user2:
+        type: "integer"
+        description: "Id utilisateur 2"
+        format: "int64"
+      
+  ChatPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/Chat"
+
+  
+  ChatComment:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "Id du commentaire"
+        format: "int64"
+      
+      id_chat:
+        type: "integer"
+        description: "Id de la conversation"
+        format: "int64"
+      
+      id_user:
+        type: "integer"
+        description: "Id de l'utilisateur qui a écrit le commentaire"
+        format: "int64"
+      
+      comment:
+        type: "string"
+        description: "Commentaire"
+        format: "string"
+      
+      date:
+        type: "string"
+        description: "Date du commentaire"
+        format: "date-time"
+      
+  ChatCommentPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/ChatComment"
+
+  
+  City:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "Id de la ville"
+        format: "int64"
+      
+      name:
+        type: "string"
+        description: "Nom de la ville"
+        format: "string"
+      
+      zip_code:
+        type: "string"
+        description: "Code postal de la ville"
+        format: "string"
+      
+  CityPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/City"
+
+  
+  CitiesDistrict:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "Id du quartier"
+        format: "int64"
+      
+      id_city:
+        type: "integer"
+        description: "Id de la ville"
+        format: "int64"
+      
+      name:
+        type: "string"
+        description: "Nom du quartier"
+        format: "string"
+      
+  CitiesDistrictPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/CitiesDistrict"
+
+  
+  RealEstate:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "Id du bien"
+        format: "int64"
+      
+      id_user:
+        type: "integer"
+        description: "Id du proprietaire"
+        format: "int64"
+      
+      accroche:
+        type: "string"
+        description: "Phrase d'accroche (max 100 caractères)"
+        format: "string"
+      
+      type:
+        type: "string"
+        description: "Type de bien ('apartment','house','vacant_lot','parking','loft','castle','building')"
+        format: "string"
+      
+      nb_rooms:
+        type: "integer"
+        description: "Nombre de pièce"
+        format: "int64"
+      
+      nb_bedroom:
+        type: "integer"
+        description: "Nombre de chambre"
+        format: "int64"
+      
+      description:
+        type: "string"
+        description: "Description"
+        format: "string"
+      
+      size:
+        type: "integer"
+        description: "Superficie (en entier)"
+        format: "int64"
+      
+      price:
+        type: "integer"
+        description: "Prix du bien"
+        format: "int64"
+      
+      address:
+        type: "string"
+        description: "Adresse"
+        format: "string"
+      
+      zip_code:
+        type: "string"
+        description: "Code postal"
+        format: "string"
+      
+      city:
+        type: "string"
+        description: "Ville"
+        format: "string"
+      
+      latitude:
+        type: "string"
+        description: "Latitude"
+        format: "string"
+      
+      longitude:
+        type: "string"
+        description: "Longitude"
+        format: "string"
+      
+      energy_class:
+        type: "string"
+        description: "Classe d'énergie"
+        format: "string"
+      
+      ges_class:
+        type: "string"
+        description: "Classe GES"
+        format: "string"
+      
+      has_garden:
+        type: "integer"
+        description: "A un jardin"
+        format: "int64"
+      
+      has_exposed_stone:
+        type: "integer"
+        description: "A des pierres apparentes"
+        format: "int64"
+      
+      has_ciment_tiles:
+        type: "integer"
+        description: "A des carreaux de ciments"
+        format: "int64"
+      
+      has_parquet_floor:
+        type: "integer"
+        description: "A du parquet au sol"
+        format: "int64"
+      
+  RealEstatePagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/RealEstate"
+
+  
+  RealEstateAvailability:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "Id de la disponibilité"
+        format: "int64"
+      
+      price:
+        type: "number"
+        description: "Prix de la visite"
+        format: "float"
+      
+      start_date:
+        type: "string"
+        description: "Date de début"
+        format: "date-time"
+      
+      end_date:
+        type: "string"
+        description: "Date de fin"
+        format: "date-time"
+      
+      start_time:
+        type: "string"
+        description: "De "
+        format: "date-time"
+      
+      end_time:
+        type: "string"
+        description: "à"
+        format: "date-time"
+      
+  RealEstateAvailabilityPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/RealEstateAvailability"
+
+  
+  RealEstateFeedback:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "Id du feedback"
+        format: "int64"
+      
+      id_user:
+        type: "integer"
+        description: "Id de l'utilisateur"
+        format: "int64"
+      
+      id_real_estate:
+        type: "integer"
+        description: "Id du bien"
+        format: "int64"
+      
+      feedback:
+        type: "string"
+        description: "Feedback"
+        format: "string"
+      
+      date:
+        type: "string"
+        description: "Date (YYYY-mm-dd hh:mm:ss)"
+        format: "date-time"
+      
+  RealEstateFeedbackPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/RealEstateFeedback"
+
+  
+  RealEstateImage:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "Id de l'image"
+        format: "int64"
+      
+      id_real_estate:
+        type: "integer"
+        description: "Id du bien"
+        format: "int64"
+      
+      url:
+        type: "string"
+        description: "Url de l'image"
+        format: "string"
+      
+  RealEstateImagePagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/RealEstateImage"
+
+  
+  RealEstatePropal:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "Id de la proposition"
+        format: "int64"
+      
+      id_booker:
+        type: "integer"
+        description: "Id du booker"
+        format: "int64"
+      
+      id_buyer:
+        type: "integer"
+        description: "Id du visitor"
+        format: "int64"
+      
+      id_real_estate:
+        type: "integer"
+        description: "Id du bien"
+        format: "int64"
+      
+      id_vendor:
+        type: "integer"
+        description: "Id du propriétaire"
+        format: "int64"
+      
+      price:
+        type: "number"
+        description: "Montant de la proposition"
+        format: "float"
+      
+      buyer_first_name:
+        type: "string"
+        description: "Prénom de l'acheteur"
+        format: "string"
+      
+      buyer_last_name:
+        type: "string"
+        description: "Nom de l'acheteur"
+        format: "string"
+      
+      buyer_address:
+        type: "string"
+        description: "Adresse de l'acheteur"
+        format: "string"
+      
+      buyer_zip_code:
+        type: "string"
+        description: "Code postal de l'acheteur"
+        format: "string"
+      
+      buyer_city:
+        type: "string"
+        description: "Ville de l'acheteur"
+        format: "string"
+      
+      expiration_date:
+        type: "string"
+        description: "Date d'expiration de l'offre"
+        format: "date-time"
+      
+      is_accepted:
+        type: "integer"
+        description: "Est accepté?"
+        format: "int64"
+      
+  RealEstatePropalPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/RealEstatePropal"
+
+  
+  RealEstatePropalsBuyerIndication:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "Id de l'indication"
+        format: "int64"
+      
+      id_propal:
+        type: "integer"
+        description: "Id de la proposition"
+        format: "int64"
+      
+      id_buyer:
+        type: "integer"
+        description: "Id de l'acheteur"
+        format: "int64"
+      
+      id_vendor:
+        type: "integer"
+        description: "Id du vendeur"
+        format: "int64"
+      
+      has_total_in_cash:
+        type: "integer"
+        description: "a le total en cash ?"
+        format: "int64"
+      
+      has_financial_support:
+        type: "integer"
+        description: "a un apport financier ?"
+        format: "int64"
+      
+      has_big_financial_support:
+        type: "integer"
+        description: "a un apport financier important ? (>30% du bien)"
+        format: "int64"
+      
+      has_very_big_financial_support:
+        type: "integer"
+        description: "a un apport financier très important ? (> 70% du bien)"
+        format: "int64"
+      
+      want_a_long_sell:
+        type: "integer"
+        description: "veut une vente longue ? (+ de 6 mois)"
+        format: "int64"
+      
+  RealEstatePropalsBuyerIndicationPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/RealEstatePropalsBuyerIndication"
+
+  
+  RealEstateVisit:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "Id de la visite"
+        format: "int64"
+      
+      id_real_estate:
+        type: "integer"
+        description: "Id du bien"
+        format: "int64"
+      
+      id_booker:
+        type: "integer"
+        description: "Id du booker"
+        format: "int64"
+      
+      id_visitor:
+        type: "integer"
+        description: "Id du visiteur"
+        format: "int64"
+      
+      start_date:
+        type: "string"
+        description: "Date de début (YYYY-mm-dd)"
+        format: "date-time"
+      
+      end_date:
+        type: "string"
+        description: "Date de fin (YYYY-mm-dd)"
+        format: "date-time"
+      
+      start_time:
+        type: "string"
+        description: "Heure de début (hh:mm)"
+        format: "date-time"
+      
+      end_time:
+        type: "string"
+        description: "Heure de fin (hh:mm)"
+        format: "date-time"
+      
+      booker_is_ready:
+        type: "integer"
+        description: "Le booker est prêt ?"
+        format: "int64"
+      
+      visitor_is_ready:
+        type: "integer"
+        description: "Les visiteurs sont prêts ?"
+        format: "int64"
+      
+  RealEstateVisitPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/RealEstateVisit"
+
+  
+  UserAuth:
+    type: "object"
+    properties:
+      
+      id:
+        type: "integer"
+        description: "Id de l'utilisateur"
+        format: "int64"
+        
+      email:
+        type: "string"
+        description: "Email de l'utilisateur qui sert aussi de login"
+        format: "string"
+        
+      password:
+        type: "string"
+        description: "Mot de passe de l'utilisateur"
+        format: "string"
+        
+      avatar:
+        type: "string"
+        description: "Url de l'avatar de l'utilisateur"
+        format: "string"
+        
+      first_name:
+        type: "string"
+        description: "Prénom de l'utilisateur"
+        format: "string"
+        
+      last_name:
+        type: "string"
+        description: "Nom de l'utilisateur"
+        format: "string"
+        
+      address:
+        type: "string"
+        description: "Adresse"
+        format: "string"
+        
+      zip_code:
+        type: "string"
+        description: "Code postal"
+        format: "string"
+        
+      city:
+        type: "string"
+        description: "Ville"
+        format: "string"
+        
+      latitude:
+        type: "string"
+        description: "Latitude"
+        format: "string"
+        
+      longitude:
+        type: "string"
+        description: "Longitude"
+        format: "string"
+        
+      token:
+        type: "string"
+        description: "jwt token"
+        format: "string"
+      expire:
+        type: "string"
+        description: "jwt token expire time"
+        format: "date-time"
+      expire_ts:
+        type: "integer"
+        description: "expire timestamp unix"
+        format: "int64"
+  
+  User:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "Id de l'utilisateur"
+        format: "int64"
+      
+      email:
+        type: "string"
+        description: "Email de l'utilisateur qui sert aussi de login"
+        format: "string"
+      
+      password:
+        type: "string"
+        description: "Mot de passe de l'utilisateur"
+        format: "string"
+      
+      avatar:
+        type: "string"
+        description: "Url de l'avatar de l'utilisateur"
+        format: "string"
+      
+      first_name:
+        type: "string"
+        description: "Prénom de l'utilisateur"
+        format: "string"
+      
+      last_name:
+        type: "string"
+        description: "Nom de l'utilisateur"
+        format: "string"
+      
+      address:
+        type: "string"
+        description: "Adresse"
+        format: "string"
+      
+      zip_code:
+        type: "string"
+        description: "Code postal"
+        format: "string"
+      
+      city:
+        type: "string"
+        description: "Ville"
+        format: "string"
+      
+      latitude:
+        type: "string"
+        description: "Latitude"
+        format: "string"
+      
+      longitude:
+        type: "string"
+        description: "Longitude"
+        format: "string"
+      
+  UserPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/User"
+
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      msg:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
