@@ -1,14 +1,20 @@
 package handlers
 
 import (
+	"context"
 	"fmt"
+	"log"
+	"path"
+	"ynov_immo/models"
+
+	"cloud.google.com/go/storage"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/autotls"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
-	"log"
-	"path"
-	"ynov_immo/models"
+	"google.golang.org/api/option"
+
+	"cloud.google.com/go/logging"
 )
 
 var r = gin.Default()
@@ -19,6 +25,8 @@ func init() {
 	if viper.GetBool("app.enable_cors") {
 		enableCorsMiddleware()
 	}
+
+	// Cloud Logs.
 	if sp := viper.GetString("app.static_path"); sp != "" {
 		r.Use(static.Serve("/", static.LocalFile(sp, true)))
 		if viper.GetBool("app.enable_not_found") {
@@ -51,10 +59,32 @@ func init() {
 
 //ServerRun start the gin server
 func ServerRun() {
+	ctx := context.Background()
+
+	_, err := storage.NewClient(ctx, option.WithCredentialsFile("ynov-api-f0d1500a3602.json"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Sets your Google Cloud Platform project ID.
+	projectID := "ynov-api"
+
+	// Creates a client.
+	logclient, err := logging.NewClient(ctx, projectID)
+	if err != nil {
+		log.Fatalf("Failed to create client: %v", err)
+	}
+	defer logclient.Close()
+
+	// Sets the name of the log to write to.
+	logName := "api-log"
+
+	logger := logclient.Logger(logName).StandardLogger(logging.Info)
 
 	addr := viper.GetString("app.addr")
 	if viper.GetBool("app.enable_https") {
 		log.Fatal(autotls.Run(r, addr))
+		logger.Println(autotls.Run(r, addr))
 	} else {
 		log.Printf("visit http://%s/swagger for RESTful APIs Document", addr)
 		log.Printf("visit http://%s/ for front-end static html files", addr)

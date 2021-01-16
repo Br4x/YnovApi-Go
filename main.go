@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	_ "ynov_immo/config"
 	"ynov_immo/handlers"
 	"ynov_immo/tasks"
@@ -15,5 +14,4 @@ func main() {
 	}
 	defer handlers.Close()
 	handlers.ServerRun()
-	fmt.Println("test")
 }

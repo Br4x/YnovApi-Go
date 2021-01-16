@@ -12,4 +12,37 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-runtime: go114 # replace with go111 for Go 1.11
+runtime: go # replace with go111 for Go 1.11
+
+env: flex
+
+manual_scaling:
+  instances: 1
+resources:
+  cpu: 1
+  memory_gb: 0.5
+  disk_size_gb: 10
+
+#[START gae_flex_mysql_env]
+env_variables:
+  # See https://github.com/go-sql-driver/mysql
+  #
+  # Replace INSTANCE_CONNECTION_NAME with the same value as in the
+  # beta_settings section below.
+  MYSQL_CONNECTION: root:root@unix(/cloudsql/ynov-api:europe-west1:ynov-immo)/ynov_immo
+  GOOGLE_APPLICATION_CREDENTIALS: ./ynov-api-f0d1500a3602.json
+  GIN_MODE: release
+  #
+  # If you're testing locally using the Cloud SQL proxy with TCP,
+  # instead use the "tcp" dialer by setting the environment variable:
+  # MYSQL_CONNECTION=user:password@tcp(127.0.0.1:3306)/dbname
+#[END gae_flex_mysql_env]
+
+#[START gae_flex_mysql_settings]
+# Replace INSTANCE_CONNECTION_NAME with the value obtained when configuring your
+# Cloud SQL instance, available from the Google Cloud Console or from the Cloud SDK.
+# For SQL v2 instances, this should be in the form of "project:region:instance".
+# Cloud SQL v1 instances are not supported.
+beta_settings:
+  cloud_sql_instances: ynov-api:europe-west1:ynov-immo
+#[END gae_flex_mysql_settings]

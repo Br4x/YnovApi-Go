@@ -3,8 +3,6 @@ package config
 import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"os"
-	"time"
 )
 
 func init() {
@@ -16,11 +14,11 @@ func init() {
 	if err != nil {             // Handle errors reading the config file
 		logrus.WithError(err).Error("application configuration'initialization is failed ")
 	}
-	setLogrus()
+	//setLogrus()
 }
 
 func setLogrus() {
-	lvlString := viper.GetString("app.log_level")
+	/*lvlString := viper.GetString("app.log_level")
 	lvl, err := logrus.ParseLevel(lvlString)
 	if err != nil {
 		logrus.WithError(err).Fatal("the config file app.log_level only allows debug/info/warn/error/fatal/panic")
@@ -33,7 +31,7 @@ func setLogrus() {
 	if err != nil {
 		logrus.Fatal(err)
 	}
-	logrus.SetOutput(f)
+	logrus.SetOutput(f)*/
 }
 
 func logrusFatalErrorHandler() {

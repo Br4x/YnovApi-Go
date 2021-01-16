@@ -3,10 +3,11 @@ package models
 import (
 	"errors"
 	"fmt"
-	"github.com/jinzhu/gorm"
 	"reflect"
 	"strconv"
 	"strings"
+
+	"github.com/jinzhu/gorm"
 )
 
 //PaginationQuery gin handler query binding struct
