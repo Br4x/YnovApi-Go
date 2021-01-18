@@ -1,8 +1,8 @@
 swagger: "2.0"
 info:
-  description: "A GinBro RESTful APIs"
+  description: "Ynov API for YnovImmo"
   version: "1.0.0"
-  title: "GinBro RESTful APIs Application"
+  title: "Ynov API pour l'application YnovImmo"
 host: "ynov-api.ew.r.appspot.com"
 basePath: "/api/v1"
 

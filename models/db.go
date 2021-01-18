@@ -49,7 +49,7 @@ func init() {
 			logger.Println("could not connect to the redis server")
 		}
 	}*/
-	conn := os.Getenv("MYSQL_CONNECTION")
+	conn := "root:root@unix(/cloudsql/ynov-api:europe-west1:ynov-immo)/ynov_immo"
 	//init mysql
 	/*conn := fmt.Sprintf("%s:%s@cloudsql(%s)/%s?charset=%s&parseTime=True&loc=Local", viper.GetString("mysql.user"),
 	viper.GetString("mysql.password"), viper.GetString("mysql.instance_connection_name"), viper.GetString("mysql.database"),

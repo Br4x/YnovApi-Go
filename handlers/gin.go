@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"path"
+	"net/http"
+
 	"ynov_immo/models"
 
 	"cloud.google.com/go/storage"
@@ -89,7 +91,9 @@ func ServerRun() {
 		log.Printf("visit http://%s/swagger for RESTful APIs Document", addr)
 		log.Printf("visit http://%s/ for front-end static html files", addr)
 		log.Printf("visit http://%s/app/info for app info only on not-prod mode", addr)
-		r.Run(addr)
+		r.LoadHTMLGlob("static/*")
+		http.Handle("/", r)
+		r.Run()
 	}
 }
 
