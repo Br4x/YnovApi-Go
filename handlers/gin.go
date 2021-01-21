@@ -15,8 +15,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 	"google.golang.org/api/option"
-
-	"cloud.google.com/go/logging"
 )
 
 var r = gin.Default()
@@ -69,28 +67,27 @@ func ServerRun() {
 	}
 
 	// Sets your Google Cloud Platform project ID.
-	projectID := "ynov-api"
+	//projectID := "ynov-api"
 
 	// Creates a client.
-	logclient, err := logging.NewClient(ctx, projectID)
+	/*logclient, err := logging.NewClient(ctx, projectID)
 	if err != nil {
 		log.Fatalf("Failed to create client: %v", err)
 	}
-	defer logclient.Close()
+	defer logclient.Close()*/
 
 	// Sets the name of the log to write to.
-	logName := "api-log"
+	// logName := "api-log"
+	// logger := logclient.Logger(logName).StandardLogger(logging.Info)
 
-	logger := logclient.Logger(logName).StandardLogger(logging.Info)
-
-	addr := viper.GetString("app.addr")
+	// addr := viper.GetString("app.addr")
 	if viper.GetBool("app.enable_https") {
-		log.Fatal(autotls.Run(r, addr))
-		logger.Println(autotls.Run(r, addr))
+		//log.Fatal(autotls.Run(r, addr))
+		//logger.Println()
+		r.LoadHTMLGlob("static/*")
+		log.Fatal(autotls.Run(r, "ynov-api.ew.r.appspot.com"))
+		http.ListenAndServeTLS(":443", "cert.pem", "key.key", nil)
 	} else {
-		log.Printf("visit http://%s/swagger for RESTful APIs Document", addr)
-		log.Printf("visit http://%s/ for front-end static html files", addr)
-		log.Printf("visit http://%s/app/info for app info only on not-prod mode", addr)
 		r.LoadHTMLGlob("static/*")
 		http.Handle("/", r)
 		r.Run()

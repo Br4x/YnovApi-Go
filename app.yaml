@@ -3,9 +3,12 @@ default_expiration: 1d
 instance_class: F1
 
 env_variables:
-  MYSQL_CONNECTION: root:root@unix(/cloudsql/ynov-api:europe-west1:ynov-immo)/ynov_immo
   GOOGLE_APPLICATION_CREDENTIALS: ./ynov-api-f0d1500a3602.json
   GIN_MODE: release
+  CLOUDSQL_CONNECTION_NAME: ynov-api:europe-west1:ynov-immo
+  CLOUDSQL_USER: root
+  CLOUDSQL_PASSWORD: root
+  CLOUDSQL_DATABASE_NAME: ynov_immo
 
 automatic_scaling:
   max_instances: 1

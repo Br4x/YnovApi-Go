@@ -35,5 +35,5 @@ require (
 	google.golang.org/grpc v1.33.1 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
 	honnef.co/go/tools v0.0.1-2020.1.4 // indirect
-
+	github.com/unrolled/secure v1.0.8
 )

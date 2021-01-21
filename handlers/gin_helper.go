@@ -6,7 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"strconv"
 	"time"
+	"fmt"
 	"ynov_immo/models"
+	"log"
 )
 
 func jsonError(c *gin.Context, msg string) {
@@ -25,6 +27,8 @@ func jsonSuccess(c *gin.Context) {
 func handleError(c *gin.Context, err error) bool {
 	if err != nil {
 		jsonError(c, err.Error())
+		fmt.Errorf("SQL Error: %v", err.Error())
+		log.Printf("SQL Error: %s", err.Error())
 		return true
 	}
 	return false

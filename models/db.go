@@ -5,8 +5,8 @@ import (
 	_ "database/sql"
 	"fmt"
 	"log"
-	"os"
 
+	"os"
 	"cloud.google.com/go/logging"
 	_ "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
 	"github.com/jinzhu/gorm"
@@ -49,13 +49,31 @@ func init() {
 			logger.Println("could not connect to the redis server")
 		}
 	}*/
-	conn := "root:root@unix(/cloudsql/ynov-api:europe-west1:ynov-immo)/ynov_immo"
+
+	var (
+		connectionName = os.Getenv("CLOUDSQL_CONNECTION_NAME")
+		user           = os.Getenv("CLOUDSQL_USER")
+		dbName         = os.Getenv("CLOUDSQL_DATABASE_NAME") // NOTE: dbName may be empty
+		password       = os.Getenv("CLOUDSQL_PASSWORD")      // NOTE: password may be empty
+		socket         = os.Getenv("CLOUDSQL_SOCKET_PREFIX")
+	)
+
+	if socket == "" {
+		socket = "/cloudsql"
+	}
+
+	// MySQL Connection, comment out to use PostgreSQL.
+	// connection string format: USER:PASSWORD@unix(/cloudsql/PROJECT_ID:REGION_ID:INSTANCE_ID)/[DB_NAME]
+	dbURI := fmt.Sprintf("%s:%s@unix(%s/%s)/%s", user, password, socket, connectionName, dbName)
+
+
+	// conn := "root:root@unix(/cloudsql/ynov-api:europe-west1:ynov-immo)/ynov_immo"
 	//init mysql
 	/*conn := fmt.Sprintf("%s:%s@cloudsql(%s)/%s?charset=%s&parseTime=True&loc=Local", viper.GetString("mysql.user"),
 	viper.GetString("mysql.password"), viper.GetString("mysql.instance_connection_name"), viper.GetString("mysql.database"),
 	viper.GetString("mysql.charset"))*/
 
-	if db, err := gorm.Open("mysql", conn); err == nil {
+	if db, err := gorm.Open("mysql", dbURI); err == nil {
 		mysqlDB = db
 	} else {
 		//logrus.WithError(err).Fatalln("initialize mysql database failed")

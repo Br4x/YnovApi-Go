@@ -7,7 +7,7 @@ host: "ynov-api.ew.r.appspot.com"
 basePath: "/api/v1"
 
 schemes:
-- "http"
+- "https"
 paths:
   
   
