@@ -3,7 +3,7 @@ default_expiration: 1d
 instance_class: F1
 
 env_variables:
-  GOOGLE_APPLICATION_CREDENTIALS: ./ynov-api-f0d1500a3602.json
+  GOOGLE_APPLICATION_CREDENTIALS: ./ynov-api-c369caf8204f.json
   GIN_MODE: release
   CLOUDSQL_CONNECTION_NAME: ynov-api:europe-west1:ynov-immo
   CLOUDSQL_USER: root
